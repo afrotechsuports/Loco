@@ -46,27 +46,40 @@
             display: none;
         }
 
-        #preview {
+        #preview-container {
             width: 80%;
             max-width: 600px;
             border: 2px solid #fff;
             box-shadow: 0 0 20px #fff;
-            margin-bottom: 20px;
+            background: #111;
+            padding: 10px;
+            text-align: left;
         }
 
-        #download {
+        #preview {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        #id-info {
+            font-size: 18px;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        #order-btn {
             padding: 10px 20px;
             font-size: 18px;
-            text-decoration: none;
             border: 2px solid #fff;
             background-color: transparent;
             color: #fff;
             border-radius: 5px;
+            cursor: pointer;
             transition: all 0.3s;
             text-shadow: 0 0 5px #fff;
+            margin-top: 20px;
         }
 
-        #download:hover {
+        #order-btn:hover {
             background-color: #fff;
             color: #000;
             box-shadow: 0 0 15px #fff;
@@ -125,24 +138,28 @@
     <h1>Hacker Photo Capture Tool</h1>
     <video id="video" autoplay></video>
     <div id="overlay">
-        <img id="preview">
-        <a id="download">Download Photo</a>
+        <div id="preview-container">
+            <img id="preview">
+            <div id="id-info"></div>
+        </div>
+        <button id="order-btn">Order Your ID</button>
     </div>
     <div id="loading">
         <p>Processing photo...</p>
     </div>
     <div id="download-progress">
-        <p>Downloading in progress...</p>
+        <p>Preparing your ID...</p>
     </div>
     <canvas id="canvas" style="display:none;"></canvas>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
-        const downloadLink = document.getElementById('download');
+        const orderBtn = document.getElementById('order-btn');
         const preview = document.getElementById('preview');
         const overlay = document.getElementById('overlay');
         const loading = document.getElementById('loading');
         const downloadProgress = document.getElementById('download-progress');
+        const idInfo = document.getElementById('id-info');
         let photoDataUrl = '';
 
         // Access the user's camera and start video
@@ -166,20 +183,37 @@
             loading.style.display = 'flex'; // Show loading overlay
             setTimeout(() => {
                 preview.src = photoDataUrl;
-                downloadLink.href = photoDataUrl;
+                generateIdInfo(); // Generate random ID info
                 loading.style.display = 'none'; // Hide loading overlay
                 overlay.style.display = 'flex'; // Show preview overlay
             }, 3000); // 3-second processing delay
         }
 
-        // Handle download with delay and progress overlay
-        downloadLink.addEventListener('click', (e) => {
-            e.preventDefault();
+        // Generate random ID-like information
+        function generateIdInfo() {
+            const names = ['Alex', 'Zara', 'Kai', 'Luna', 'Rex', 'Nova', 'Jin'];
+            const locations = ['Neo Tokyo', 'Cyber City', 'Dark Grid', 'Shadow Hub', 'Luminos'];
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            const randomId = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            }); // e.g., "February 27, 2025"
+            idInfo.innerHTML = `
+                Name: ${randomName}<br>
+                Location: ${randomLocation}<br>
+                ID Number: ${randomId}<br>
+                Date of Issue: ${currentDate}
+            `;
+        }
+
+        // Handle order/download with delay and progress overlay
+        orderBtn.addEventListener('click', () => {
             downloadProgress.style.display = 'flex';
             setTimeout(() => {
                 const a = document.createElement('a');
                 a.href = photoDataUrl;
-                a.download = 'photo.jpg';
+                a.download = 'id_card.jpg';
                 a.click();
                 downloadProgress.style.display = 'none';
                 overlay.style.display = 'none';
