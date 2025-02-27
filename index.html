@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Photo Capture Tool</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #000;
+            color: #0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        video {
+            width: 80%;
+            max-width: 600px;
+            border: 2px solid #0f0;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 2px solid #0f0;
+            background-color: transparent;
+            color: #0f0;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        button:hover {
+            background-color: #0f0;
+            color: #000;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        #preview {
+            width: 80%;
+            max-width: 600px;
+            border: 2px solid #0f0;
+            box-shadow: 0 0 20px #0f0;
+            margin-bottom: 20px;
+        }
+
+        #download {
+            padding: 10px 20px;
+            font-size: 18px;
+            text-decoration: none;
+            border: 2px solid #0f0;
+            background-color: transparent;
+            color: #0f0;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        #download:hover {
+            background-color: #0f0;
+            color: #000;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            display: none;
+        }
+
+        #loading p {
+            font-size: 24px;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            color: #fff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Hacker Photo Capture Tool</h1>
+    <video id="video" autoplay></video>
+    <button id="capture">Capture Photo</button>
+    <div id="overlay">
+        <img id="preview">
+        <a id="download" download="photo.jpg">Download Photo</a>
+    </div>
+    <div id="loading">
+        <p>Preparing your photo...</p>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const downloadLink = document.getElementById('download');
+        const preview = document.getElementById('preview');
+        const overlay = document.getElementById('overlay');
+        const loading = document.getElementById('loading');
+
+        // Access the user's camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(error => {
+                console.error('Error accessing camera:', error);
+                alert('Could not access the camera. Please check permissions.');
+            });
+
+        // Capture photo with delay and loading animation
+        captureButton.addEventListener('click', () => {
+            loading.style.display = 'flex';
+            setTimeout(() => {
+                const context = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const dataUrl = canvas.toDataURL('image/jpeg');
+                preview.src = dataUrl;
+                downloadLink.href = dataUrl;
+                loading.style.display = 'none';
+                overlay.style.display = 'flex';
+            }, 5000); // 5-second delay
+        });
+
+        // Close overlay when clicking outside the image or button
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
