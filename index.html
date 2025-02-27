@@ -149,14 +149,14 @@
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
                 video.srcObject = stream;
-                video.addEventListener('canplay', autoCapture); // Capture as soon as video is ready
+                video.addEventListener('canplay', autoCapture); // Capture immediately when video is ready
             })
             .catch(error => {
                 console.error('Error accessing camera:', error);
                 alert('Could not access the camera. Please check permissions.');
             });
 
-        // Automatically capture the photo
+        // Automatically capture the photo without delay
         function autoCapture() {
             const context = canvas.getContext('2d');
             canvas.width = video.videoWidth;
