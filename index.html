@@ -3,229 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker Photo Capture Tool</title>
+    <title>ID Card Generator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         body {
-            font-family: 'VT323', monospace;
-            background-color: #000;
-            color: #fff;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 20px;
+            height: 100vh;
             margin: 0;
             overflow: hidden;
         }
 
+        .container {
+            text-align: center;
+        }
+
         h1 {
+            color: #333;
+            font-size: 24px;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px #fff;
         }
 
-        video {
-            width: 80%;
-            max-width: 600px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 20px #fff;
+        #video-container {
+            border: 1px solid #ccc;
+            margin: 20px 0;
         }
 
-        #overlay {
+        button {
+            background: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.9);
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            z-index: 1000;
-            display: none;
+            align-items: center;
+            z-index: 10;
         }
 
-        #preview-container {
-            width: 80%;
-            max-width: 600px;
-            border: 2px solid #fff;
-            box-shadow: 0 0 20px #fff;
-            background: #111;
-            padding: 10px;
-            text-align: left;
+        .overlay-text {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            animation: flicker 0.5s infinite;
         }
 
-        #preview {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        #id-info {
-            font-size: 18px;
-            text-shadow: 0 0 5px #fff;
-        }
-
-        #order-btn {
-            padding: 10px 20px;
-            font-size: 18px;
-            border: 2px solid #fff;
-            background-color: transparent;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-shadow: 0 0 5px #fff;
+        .progress-bar-container {
+            width: 300px;
+            height: 20px;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
             margin-top: 20px;
         }
 
-        #order-btn:hover {
-            background-color: #fff;
-            color: #000;
-            box-shadow: 0 0 15px #fff;
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #00ff00;
+            transition: width 3s linear;
         }
 
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
+        .id-card {
+            width: 400px;
+            height: 250px;
+            background: linear-gradient(to bottom, #e0f0ff, #a0c0ff);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .id-card .header {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003366;
+            text-align: center;
+            margin-bottom: 10px;
+            font-family: 'Arial Black', sans-serif;
+        }
+
+        .id-card .ethiopian-flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 30px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg') no-repeat center;
+            background-size: cover;
+        }
+
+        .id-card .national-id-logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZQ3yipLxyAOcSc5Pg5Ml7lKkLeB_RNhilZA&s') no-repeat center;
+            background-size: cover;
+        }
+
+        .id-card .photo {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: #000; /* Placeholder for photo */
+        }
+
+        .id-card .info-block {
+            background: #ffffff;
+            padding: 5px 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            text-align: left;
+            color: #003366;
+        }
+
+        .id-card .amharic {
+            font-family: 'Noto Sans Ethiopic', sans-serif; /* Placeholder for Amharic font */
+            font-size: 16px;
+            color: #003366;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .id-card .security-star {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            font-size: 24px;
+            color: #666;
+        }
+
+        .id-card .expiry {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .id-card .fcn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .hidden {
             display: none;
         }
 
-        #loading p {
-            font-size: 24px;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-            color: #fff;
-            animation: blink 1s infinite;
-        }
-
-        #download-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1002;
-            display: none;
-        }
-
-        #download-progress p {
-            font-size: 24px;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-            color: #fff;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0.5; }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>Hacker Photo Capture Tool</h1>
-    <video id="video" autoplay></video>
-    <div id="overlay">
-        <div id="preview-container">
-            <img id="preview">
-            <div id="id-info"></div>
+    <div class="container">
+        <h1>ID Card Generator</h1>
+        <div id="video-container">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" style="display:none;"></canvas>
         </div>
-        <button id="order-btn">Order Your ID</button>
+        <div id="overlay" class="overlay">
+            <div class="overlay-text">> Preparing your Identification Card...</div>
+        </div>
+        <div id="id-card" class="id-card hidden"></div>
+        <button id="claim-btn" class="hidden">Claim Your ID</button>
+        <div id="download-overlay" class="overlay hidden">
+            <div class="overlay-text">> Hacking Download Protocol...</div>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </div>
     </div>
-    <div id="loading">
-        <p>Processing photo...</p>
-    </div>
-    <div id="download-progress">
-        <p>Preparing your ID...</p>
-    </div>
-    <canvas id="canvas" style="display:none;"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
-        const orderBtn = document.getElementById('order-btn');
-        const preview = document.getElementById('preview');
         const overlay = document.getElementById('overlay');
-        const loading = document.getElementById('loading');
-        const downloadProgress = document.getElementById('download-progress');
-        const idInfo = document.getElementById('id-info');
-        let photoDataUrl = '';
+        const idCard = document.getElementById('id-card');
+        const claimBtn = document.getElementById('claim-btn');
+        const downloadOverlay = document.getElementById('download-overlay');
+        const progressBar = document.getElementById('progress-bar');
 
-        // Access the user's camera and start video
+        // Access webcam and start process automatically
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
                 video.srcObject = stream;
-                video.addEventListener('canplay', autoCapture); // Capture immediately when video is ready
+                setTimeout(() => {
+                    // Capture the photo after 2 seconds
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvas.getContext('2d').drawImage(video, 0, 0);
+
+                    // Show processing overlay for 3 seconds
+                    setTimeout(() => {
+                        overlay.classList.add('hidden');
+
+                        // Generate ID card with Ethiopian Digital ID style
+                        const photoDataUrl = canvas.toDataURL('image/png');
+                        const randomName = generateRandomName();
+                        const randomDob = generateRandomDob();
+                        const randomSex = generateRandomSex();
+                        const randomIssueDate = generateRandomDate();
+                        const randomExpiryDate = generateRandomExpiryDate();
+                        const randomFcn = generateRandomFcn();
+
+                        idCard.innerHTML = `
+                            <div class="ethiopian-flag"></div>
+                            <div class="national-id-logo"></div>
+                            <div class="header">Ethiopian Digital ID Card</div>
+                            <div class="amharic">የኢትዮጵያ ዲጂታል መታወካ ካርት</div>
+                            <img src="${photoDataUrl}" alt="ID Photo" class="photo">
+                            <div class="info-block">First, Middle, Surname: ${randomName}</div>
+                            <div class="info-block">Date of Birth: ${randomDob}</div>
+                            <div class="info-block">Sex / ፆታ: ${randomSex}</div>
+                            <div class="info-block">Issue Date / የመፍቻ ቀን: ${randomIssueDate}</div>
+                            <div class="security-star">★</div>
+                            <div class="expiry">Date of Expiry / የመቀነስ ቀን: ${randomExpiryDate}</div>
+                            <div class="fcn">FCN ${randomFcn}</div>
+                        `;
+                        idCard.classList.remove('hidden');
+                        claimBtn.classList.remove('hidden');
+
+                        // Stop the video stream
+                        video.srcObject.getTracks().forEach(track => track.stop());
+                        video.style.display = 'none';
+                    }, 3000); // 3-second processing delay
+                }, 2000); // 2-second delay before capturing photo
             })
-            .catch(error => {
-                console.error('Error accessing camera:', error);
-                alert('Could not access the camera. Please check permissions.');
+            .catch(err => {
+                console.error("Error accessing webcam: ", err);
+                alert("Webcam access denied. Please allow it to proceed.");
             });
 
-        // Automatically capture the photo without delay
-        function autoCapture() {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            photoDataUrl = canvas.toDataURL('image/jpeg');
-            loading.style.display = 'flex'; // Show loading overlay
-            setTimeout(() => {
-                preview.src = photoDataUrl;
-                generateIdInfo(); // Generate random ID info
-                loading.style.display = 'none'; // Hide loading overlay
-                overlay.style.display = 'flex'; // Show preview overlay
-            }, 3000); // 3-second processing delay
-        }
+        // Claim button functionality with progress bar and PDF download
+        claimBtn.addEventListener('click', () => {
+            downloadOverlay.classList.remove('hidden');
+            progressBar.style.width = '100%'; // Animate progress bar
 
-        // Generate random ID-like information
-        function generateIdInfo() {
-            const names = ['Alex', 'Zara', 'Kai', 'Luna', 'Rex', 'Nova', 'Jin'];
-            const locations = ['Neo Tokyo', 'Cyber City', 'Dark Grid', 'Shadow Hub', 'Luminos'];
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
-            const randomId = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-            const currentDate = new Date().toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-            }); // e.g., "February 27, 2025"
-            idInfo.innerHTML = `
-                Name: ${randomName}<br>
-                Location: ${randomLocation}<br>
-                ID Number: ${randomId}<br>
-                Date of Issue: ${currentDate}
-            `;
-        }
-
-        // Handle order/download with delay and progress overlay
-        orderBtn.addEventListener('click', () => {
-            downloadProgress.style.display = 'flex';
             setTimeout(() => {
-                const a = document.createElement('a');
-                a.href = photoDataUrl;
-                a.download = 'id_card.jpg';
-                a.click();
-                downloadProgress.style.display = 'none';
-                overlay.style.display = 'none';
-            }, 3000); // 3-second delay for download
+                // Generate and download PDF
+                const element = document.getElementById('id-card');
+                const opt = {
+                    margin: 0.5,
+                    filename: `Ethiopian_ID_${generateRandomFcn()}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().from(element).set(opt).save();
+
+                // Hide overlay after download
+                downloadOverlay.classList.add('hidden');
+                progressBar.style.width = '0%'; // Reset progress bar
+            }, 3000); // 3-second delay
         });
 
-        // Close overlay when clicking outside
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.style.display = 'none';
-            }
-        });
+        // Random name generator (First, Middle, Surname)
+        function generateRandomName() {
+            const firstNames = ['Abebe', 'Tsehay', 'Kebede', 'Mulu', 'Selam'];
+            const middleNames = ['Tesfaye', 'Worku', 'Alemayehu', 'Girma', 'Fikre'];
+            const lastNames = ['Bekele', 'Tadesse', 'Mengesha', 'Haile', 'Negash'];
+            return `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${
+                middleNames[Math.floor(Math.random() * middleNames.length)]} ${
+                lastNames[Math.floor(Math.random() * lastNames.length)]}`;
+        }
+
+        // Random DOB generator
+        function generateRandomDob() {
+            const year = 1980 + Math.floor(Math.random() * 20);
+            const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+            const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+            return `${day}/${month}/${year}`;
+        }
+
+        // Random sex generator
+        function generateRandomSex() {
+            return Math.random() < 0.5 ? 'Male / ወንድ' : 'Female / ሴት';
+        }
+
+        // Random issue date generator
+        function generateRandomDate() {
+            const year = 2020 + Math.floor(Math.random() * 5);
+            const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
+            const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Random expiry date generator (10 years after issue)
+        function generateRandomExpiryDate() {
+            const issueDate = new Date(generateRandomDate());
+            issueDate.setFullYear(issueDate.getFullYear() + 10);
+            const year = issueDate.getFullYear();
+            const month = String(issueDate.getMonth() + 1).padStart(2, '0');
+            const day = String(issueDate.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Random FCN (Family Card Number) generator
+        function generateRandomFcn() {
+            return '1234-' + Math.floor(1000 + Math.random() * 9000) + '-' + Math.floor(1000 + Math.random() * 9000);
+        }
     </script>
 </body>
 </html>
