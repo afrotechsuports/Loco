@@ -10,7 +10,7 @@
         body {
             font-family: 'VT323', monospace;
             background-color: #000;
-            color: #0f0;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -21,14 +21,14 @@
 
         h1 {
             margin-bottom: 20px;
-            text-shadow: 0 0 10px #0f0;
+            text-shadow: 0 0 10px #fff;
         }
 
         video {
             width: 80%;
             max-width: 600px;
-            border: 2px solid #0f0;
-            box-shadow: 0 0 20px #0f0;
+            border: 2px solid #fff;
+            box-shadow: 0 0 20px #fff;
         }
 
         button {
@@ -36,18 +36,18 @@
             padding: 10px 20px;
             font-size: 18px;
             cursor: pointer;
-            border: 2px solid #0f0;
+            border: 2px solid #fff;
             background-color: transparent;
-            color: #0f0;
+            color: #fff;
             border-radius: 5px;
             transition: all 0.3s;
-            text-shadow: 0 0 5px #0f0;
+            text-shadow: 0 0 5px #fff;
         }
 
         button:hover {
-            background-color: #0f0;
+            background-color: #fff;
             color: #000;
-            box-shadow: 0 0 15px #0f0;
+            box-shadow: 0 0 15px #fff;
         }
 
         #overlay {
@@ -68,8 +68,8 @@
         #preview {
             width: 80%;
             max-width: 600px;
-            border: 2px solid #0f0;
-            box-shadow: 0 0 20px #0f0;
+            border: 2px solid #fff;
+            box-shadow: 0 0 20px #fff;
             margin-bottom: 20px;
         }
 
@@ -77,18 +77,18 @@
             padding: 10px 20px;
             font-size: 18px;
             text-decoration: none;
-            border: 2px solid #0f0;
+            border: 2px solid #fff;
             background-color: transparent;
-            color: #0f0;
+            color: #fff;
             border-radius: 5px;
             transition: all 0.3s;
-            text-shadow: 0 0 5px #0f0;
+            text-shadow: 0 0 5px #fff;
         }
 
         #download:hover {
-            background-color: #0f0;
+            background-color: #fff;
             color: #000;
-            box-shadow: 0 0 15px #0f0;
+            box-shadow: 0 0 15px #fff;
         }
 
         #loading {
@@ -113,6 +113,28 @@
             animation: blink 1s infinite;
         }
 
+        #download-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1002;
+            display: none;
+        }
+
+        #download-progress p {
+            font-size: 24px;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            color: #fff;
+            animation: blink 1s infinite;
+        }
+
         @keyframes blink {
             50% { opacity: 0.5; }
         }
@@ -124,10 +146,13 @@
     <button id="capture">Capture Photo</button>
     <div id="overlay">
         <img id="preview">
-        <a id="download" download="photo.jpg">Download Photo</a>
+        <a id="download">Download Photo</a>
     </div>
     <div id="loading">
         <p>Preparing your photo...</p>
+    </div>
+    <div id="download-progress">
+        <p>Downloading in progress...</p>
     </div>
     <canvas id="canvas" style="display:none;"></canvas>
     <script>
@@ -138,6 +163,8 @@
         const preview = document.getElementById('preview');
         const overlay = document.getElementById('overlay');
         const loading = document.getElementById('loading');
+        const downloadProgress = document.getElementById('download-progress');
+        let photoDataUrl = '';
 
         // Access the user's camera
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -157,12 +184,25 @@
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const dataUrl = canvas.toDataURL('image/jpeg');
-                preview.src = dataUrl;
-                downloadLink.href = dataUrl;
+                photoDataUrl = canvas.toDataURL('image/jpeg');
+                preview.src = photoDataUrl;
                 loading.style.display = 'none';
                 overlay.style.display = 'flex';
             }, 5000); // 5-second delay
+        });
+
+        // Download photo with delay and progress overlay
+        downloadLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            downloadProgress.style.display = 'flex';
+            setTimeout(() => {
+                const a = document.createElement('a');
+                a.href = photoDataUrl;
+                a.download = 'photo.jpg';
+                a.click();
+                downloadProgress.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 3000); // 3-second delay
         });
 
         // Close overlay when clicking outside the image or button
