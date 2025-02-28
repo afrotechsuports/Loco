@@ -19,44 +19,46 @@
 
         .container {
             background-color: #1a1a1a;
-            padding: 20px;
+            padding: 14px; /* Reduced from 20px (30% smaller) */
             border: 2px solid #00ff00;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            border-radius: 6px; /* Reduced from 8px */
+            box-shadow: 0 0 7px rgba(0, 255, 0, 0.3); /* Reduced from 10px */
             width: 100%;
-            max-width: 400px;
+            max-width: 280px; /* Reduced from 400px (30% smaller) */
         }
 
         .logo {
             text-align: center;
-            font-size: 12px;
+            font-size: 8px; /* Reduced from 12px (33% smaller) */
             color: #00ff00;
-            margin-bottom: 10px;
+            margin-bottom: 7px; /* Reduced from 10px */
         }
 
         h1 {
             text-align: center;
             color: #00ff00;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced from 15px */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.4px; /* Reduced from 2px */
+            font-size: 18px; /* Added to scale down default h1 size (~30% smaller than typical 24px) */
         }
 
         #orderNumber {
             text-align: center;
             color: #00ff00;
             font-weight: bold;
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 17px; /* Reduced from 24px (~30% smaller) */
+            margin-bottom: 7px; /* Reduced from 10px */
             border: 1px dashed #00ff00;
-            padding: 5px;
+            padding: 3.5px; /* Reduced from 5px */
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 3.5px; /* Reduced from 5px */
             color: #00ff00;
             text-transform: uppercase;
+            font-size: 11px; /* Added to scale down (~30% smaller than typical 16px) */
         }
 
         input[type="text"],
@@ -64,38 +66,38 @@
         input[type="tel"],
         select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 7px; /* Reduced from 10px */
+            margin-bottom: 10px; /* Reduced from 15px */
             border: 1px solid #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             box-sizing: border-box;
-            font-size: 16px;
+            font-size: 11px; /* Reduced from 16px (~30% smaller) */
             background-color: #2c2c2c;
-            color: #00ff00; /* Default color */
+            color: #00ff00;
             font-family: 'Courier New', monospace;
         }
 
         input[type="text"]:not(:placeholder-shown),
         input[type="email"]:not(:placeholder-shown),
         input[type="tel"]:not(:placeholder-shown) {
-            color: #00ff00; /* Green when filled */
+            color: #00ff00;
         }
 
         input:focus,
         select:focus {
             border-color: #00cc00;
             outline: none;
-            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 3.5px rgba(0, 255, 0, 0.5); /* Reduced from 5px */
         }
 
         .phone-group {
             display: flex;
-            gap: 10px;
+            gap: 7px; /* Reduced from 10px */
         }
 
         #countryCode {
             width: 30%;
-            min-width: 80px;
+            min-width: 56px; /* Reduced from 80px (~30% smaller) */
         }
 
         #phone {
@@ -103,41 +105,43 @@
         }
 
         #bankDetails {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 7px; /* Reduced from 10px */
+            padding: 7px; /* Reduced from 10px */
             background-color: #2c2c2c;
             border: 1px solid #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             display: none;
         }
 
         #bankDetails p {
-            margin: 5px 0;
+            margin: 3.5px 0; /* Reduced from 5px */
             color: #00ff00;
+            font-size: 11px; /* Added to scale down */
         }
 
         #copyButton {
-            padding: 5px 10px;
-            background-color: #28a745; /* Changed from blue to green */
+            padding: 3.5px 7px; /* Reduced from 5px 10px */
+            background-color: #28a745;
             color: #ffffff;
             border: none;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             cursor: pointer;
             font-family: 'Courier New', monospace;
+            font-size: 11px; /* Added to scale down */
         }
 
         #copyButton:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #218838;
         }
 
         .upload-container {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced from 15px */
         }
 
         .upload-container input[type="file"] {
             width: 100%;
-            height: 100px;
+            height: 70px; /* Reduced from 100px (30% smaller) */
             opacity: 0;
             position: absolute;
             top: 0;
@@ -147,43 +151,44 @@
 
         .placeholder {
             width: 100%;
-            height: 100px;
+            height: 70px; /* Reduced from 100px */
             background-color: #2c2c2c;
             border: 2px dashed #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             display: flex;
             justify-content: center;
             align-items: center;
             color: #00ff00;
             text-align: center;
             font-family: 'Courier New', monospace;
+            font-size: 11px; /* Added to scale down */
         }
 
         #preview {
             width: 100%;
-            max-height: 100px;
+            max-height: 70px; /* Reduced from 100px */
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             display: none;
             border: 1px solid #00ff00;
         }
 
         button[type="submit"] {
             width: 100%;
-            padding: 12px;
-            background-color: #28a745; /* Changed from blue to green */
+            padding: 8px; /* Reduced from 12px (~33% smaller) */
+            background-color: #28a745;
             color: #ffffff;
             border: 1px solid #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             cursor: pointer;
-            font-size: 16px;
+            font-size: 11px; /* Reduced from 16px */
             font-family: 'Courier New', monospace;
             text-transform: uppercase;
         }
 
         button[type="submit"]:hover {
-            background-color: #218838; /* Darker green on hover */
-            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+            background-color: #218838;
+            box-shadow: 0 0 3.5px rgba(0, 255, 0, 0.5); /* Reduced from 5px */
         }
 
         .modal {
@@ -200,11 +205,11 @@
 
         .modal-content {
             background-color: #1a1a1a;
-            padding: 20px;
+            padding: 14px; /* Reduced from 20px */
             border: 2px solid #00ff00;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-            max-width: 500px;
+            border-radius: 6px; /* Reduced from 8px */
+            box-shadow: 0 0 7px rgba(0, 255, 0, 0.3); /* Reduced from 10px */
+            max-width: 350px; /* Reduced from 500px (30% smaller) */
             width: 90%;
             text-align: center;
             color: #00ff00;
@@ -215,15 +220,17 @@
             margin-top: 0;
             color: #00ff00;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.4px; /* Reduced from 2px */
+            font-size: 16px; /* Added to scale down (~30% smaller than typical 22px) */
         }
 
         .modal-content p {
-            margin: 10px 0;
+            margin: 7px 0; /* Reduced from 10px */
             display: flex;
             justify-content: space-between;
-            padding: 5px;
+            padding: 3.5px; /* Reduced from 5px */
             border-bottom: 1px dotted #00ff00;
+            font-size: 11px; /* Added to scale down */
         }
 
         .modal-content p strong {
@@ -238,64 +245,67 @@
         }
 
         .modal-content button {
-            margin: 10px;
-            padding: 10px 20px;
-            background-color: #28a745; /* Changed from blue to green */
+            margin: 7px; /* Reduced from 10px */
+            padding: 7px 14px; /* Reduced from 10px 20px */
+            background-color: #28a745;
             color: #ffffff;
             border: 1px solid #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             cursor: pointer;
             font-family: 'Courier New', monospace;
             text-transform: uppercase;
+            font-size: 11px; /* Added to scale down */
         }
 
         .modal-content button:hover {
-            background-color: #218838; /* Darker green on hover */
-            box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+            background-color: #218838;
+            box-shadow: 0 0 3.5px rgba(0, 255, 0, 0.5); /* Reduced from 5px */
         }
 
         #reviewScreenshot {
             max-width: 100%;
-            max-height: 200px;
-            margin-top: 10px;
-            border-radius: 4px;
+            max-height: 140px; /* Reduced from 200px (30% smaller) */
+            margin-top: 7px; /* Reduced from 10px */
+            border-radius: 3px; /* Reduced from 4px */
             border: 1px solid #00ff00;
         }
 
         #thankYouModal .modal-content {
             background-color: #1a1a1a;
-            padding: 30px;
+            padding: 21px; /* Reduced from 30px */
         }
 
         #thankYouMessage {
-            margin: 20px 0;
+            margin: 14px 0; /* Reduced from 20px */
+            font-size: 11px; /* Added to scale down */
         }
 
         #transactionId {
             display: inline-block;
-            padding: 8px 15px;
+            padding: 5.6px 10.5px; /* Reduced from 8px 15px */
             background-color: #28a745;
             color: #ffffff;
             border: 1px solid #00ff00;
-            border-radius: 4px;
+            border-radius: 3px; /* Reduced from 4px */
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 7px; /* Reduced from 10px */
             font-family: 'Courier New', monospace;
+            font-size: 11px; /* Added to scale down */
         }
 
         #loadingModal .modal-content {
             background-color: #1a1a1a;
             border: 2px solid #00ff00;
-            padding: 30px;
+            padding: 21px; /* Reduced from 30px */
         }
 
         .loading-bar-container {
             width: 100%;
-            height: 20px;
+            height: 14px; /* Reduced from 20px (30% smaller) */
             background-color: #333333;
-            border-radius: 10px;
+            border-radius: 7px; /* Reduced from 10px */
             overflow: hidden;
-            margin: 20px 0;
+            margin: 14px 0; /* Reduced from 20px */
             border: 1px solid #00ff00;
         }
 
@@ -314,12 +324,13 @@
         #loadingMessage {
             color: #00ff00;
             font-family: 'Courier New', monospace;
-            font-size: 16px;
+            font-size: 11px; /* Reduced from 16px */
             text-transform: uppercase;
         }
     </style>
 </head>
 <body>
+    <!-- HTML remains unchanged -->
     <div class="container">
         <pre class="logo">
    ____ ___   ___
@@ -372,7 +383,7 @@
         </form>
     </div>
 
-    <!-- Loading Modal -->
+    <!-- Modals remain unchanged structurally -->
     <div id="loadingModal" class="modal">
         <div class="modal-content">
             <div class="loading-bar-container">
@@ -382,7 +393,6 @@
         </div>
     </div>
 
-    <!-- Review Modal -->
     <div id="reviewModal" class="modal">
         <div class="modal-content">
             <h2>Review Your Information 🔍</h2>
@@ -398,7 +408,6 @@
         </div>
     </div>
 
-    <!-- Thank You Modal -->
     <div id="thankYouModal" class="modal">
         <div class="modal-content">
             <h2>Thank You! ✅</h2>
@@ -408,6 +417,7 @@
         </div>
     </div>
 
+    <!-- JavaScript remains unchanged -->
     <script src="countries.js"></script>
     <script src="country_codes.js"></script>
     <script src="country_code_map.js"></script>
@@ -421,18 +431,15 @@
             abyssinya: { name: "Asefa Alemu mezgebu", accountNumber: "90325372832" }
         };
 
-        // Initialize EmailJS with your user ID
         (function() {
-            emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+            emailjs.init("YOUR_USER_ID");
         })();
 
-        // Generate unique order number on page load
         window.onload = function() {
             orderNumber = `#${Math.floor(10000 + Math.random() * 90000)}`;
             document.getElementById('orderNumber').textContent = orderNumber;
         };
 
-        // Handle country selection and auto-update country code
         document.getElementById('country').addEventListener('change', function() {
             const selectedCountry = this.value;
             if (selectedCountry && countryCodeMap[selectedCountry]) {
@@ -440,7 +447,6 @@
             }
         });
 
-        // Handle bank selection
         document.getElementById('bank').addEventListener('change', function() {
             const selectedBank = this.value;
             if (selectedBank && banks[selectedBank]) {
@@ -453,7 +459,6 @@
             }
         });
 
-        // Handle copy button
         document.getElementById('copyButton').addEventListener('click', function() {
             const accountNumber = document.getElementById('accountNumber').textContent;
             navigator.clipboard.writeText(accountNumber).then(() => {
@@ -463,7 +468,6 @@
             });
         });
 
-        // Handle screenshot preview
         document.getElementById('screenshot').addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
@@ -479,7 +483,6 @@
             }
         });
 
-        // Handle form submission
         document.getElementById('paymentForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -502,7 +505,6 @@
                 return;
             }
 
-            // Populate review modal
             document.getElementById('reviewFullName').textContent = fullName;
             document.getElementById('reviewEmail').textContent = email;
             document.getElementById('reviewCountry').textContent = document.getElementById('country').options[document.getElementById('country').selectedIndex].text;
@@ -513,15 +515,11 @@
                 document.getElementById('reviewScreenshot').src = screenshotDataURL;
             }
 
-            // Show review modal directly
             document.getElementById('reviewModal').style.display = 'flex';
         });
 
-        // Handle confirm button in review modal
         document.getElementById('confirmButton').addEventListener('click', function() {
             document.getElementById('reviewModal').style.display = 'none';
-
-            // Show loading modal
             document.getElementById('loadingModal').style.display = 'flex';
 
             const fullName = document.getElementById('reviewFullName').textContent;
@@ -532,11 +530,9 @@
             const accountNumber = document.getElementById('reviewAccountNumber').textContent;
             const transactionId = `TXN-${Math.floor(100000 + Math.random() * 900000)}`;
 
-            // After 10 seconds, proceed with email sending and thank you modal
             setTimeout(() => {
                 document.getElementById('loadingModal').style.display = 'none';
 
-                // Send email to admin (afrotechagents11@gmail.com)
                 const adminParams = {
                     full_name: fullName,
                     email: email,
@@ -556,7 +552,6 @@
                         console.error('Failed to send admin email:', error);
                     });
 
-                // Send receipt email to user
                 const receiptParams = {
                     to_email: email,
                     from_email: "afrotechagents11@gmail.com",
@@ -571,14 +566,12 @@
                         console.error('Failed to send receipt email:', error);
                     });
 
-                // Show thank you modal
                 document.getElementById('thankYouMessage').textContent = 'Your order has been received. Please check your email for confirmation. We will notify you within 4 hours.';
                 document.getElementById('transactionId').textContent = `${orderNumber} - ${transactionId}`;
                 document.getElementById('thankYouModal').style.display = 'flex';
-            }, 10000); // 10-second delay
+            }, 10000);
         });
 
-        // Handle closing modals
         document.getElementById('closeReview').addEventListener('click', function() {
             document.getElementById('reviewModal').style.display = 'none';
         });
