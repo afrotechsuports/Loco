@@ -1,2 +1,0 @@
-# Loco
-tech support test
