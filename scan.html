@@ -1,0 +1,22 @@
+<div class="scanner-view">
+    <video id="preview"></video>
+    <div class="scan-result">
+      <p id="status">Scan a ticket QR code</p>
+      <p>Ticket ID: <span id="scannedId"></span></p>
+    </div>
+  </div>
+  
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script>
+    // QR Scanning (using Instascan)
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', (content) => {
+      document.getElementById('scannedId').textContent = content;
+      document.getElementById('status').textContent = 
+        localStorage.getItem(content) ? '⚠️ Invalid Ticket' : '✅ Valid Ticket';
+      localStorage.setItem(content, 'used'); // Mark as scanned
+    });
+    Instascan.Camera.getCameras().then(cameras => {
+      if (cameras.length > 0) scanner.start(cameras[0]);
+    });
+  </script>
