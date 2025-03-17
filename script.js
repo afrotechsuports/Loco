@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
             qrCodeDiv.innerHTML = '';
             try {
                 console.log('Attempting to generate QR code');
+                if (typeof QRCode === 'undefined') {
+                    throw new Error('QRCode library not loaded. Check internet connection or CDN.');
+                }
                 new QRCode(qrCodeDiv, {
                     text: ticketData,
                     width: 150,
@@ -49,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('QR code generated successfully');
             } catch (error) {
                 console.error('QR code generation failed:', error);
-                alert('Failed to generate QR code. Check console for details.');
+                alert(`Failed to generate QR code. Check console for details. Error: ${error.message}`);
                 return;
             }
 
@@ -68,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.style.display = 'flex';
             qrCanvas.innerHTML = '';
             try {
+                if (typeof QRCode === 'undefined') {
+                    throw new Error('QRCode library not loaded for overlay.');
+                }
                 new QRCode(qrCanvas, {
                     text: data,
                     width: 300,
@@ -77,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } catch (error) {
                 console.error('Overlay QR code generation failed:', error);
-                alert('Failed to generate QR code for overlay.');
+                alert(`Failed to generate QR code for overlay. Error: ${error.message}`);
                 return;
             }
 
