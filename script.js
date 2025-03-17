@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+
     // Seller Dashboard Logic
     const sellerForm = document.getElementById('ticketForm');
     const sellerPreview = document.getElementById('ticketPreview');
@@ -9,8 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeOverlayBtn = document.getElementById('closeOverlay');
 
     if (sellerForm) {
+        console.log('Seller form found, adding event listener');
         sellerForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submitted');
 
             // Get form values
             const eventName = document.getElementById('event-name').value;
@@ -33,16 +37,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Generate QR code
             qrCodeDiv.innerHTML = '';
-            new QRCode(qrCodeDiv, {
-                text: ticketData,
-                width: 150,
-                height: 150,
-                colorDark: "#000000",
-                colorLight: "#ffffff"
-            });
+            try {
+                console.log('Attempting to generate QR code');
+                new QRCode(qrCodeDiv, {
+                    text: ticketData,
+                    width: 150,
+                    height: 150,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff"
+                });
+                console.log('QR code generated successfully');
+            } catch (error) {
+                console.error('QR code generation failed:', error);
+                alert('Failed to generate QR code. Check console for details.');
+                return;
+            }
 
             // Show ticket preview
             sellerPreview.style.display = 'block';
+            console.log('Ticket preview displayed');
 
             // Download functionality
             downloadBtn.onclick = function() {
@@ -54,13 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
         function showOverlay(data) {
             overlay.style.display = 'flex';
             qrCanvas.innerHTML = '';
-            new QRCode(qrCanvas, {
-                text: data,
-                width: 300,
-                height: 300,
-                colorDark: "#000000",
-                colorLight: "#ffffff"
-            });
+            try {
+                new QRCode(qrCanvas, {
+                    text: data,
+                    width: 300,
+                    height: 300,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff"
+                });
+            } catch (error) {
+                console.error('Overlay QR code generation failed:', error);
+                alert('Failed to generate QR code for overlay.');
+                return;
+            }
 
             // Download QR code
             setTimeout(() => {
@@ -76,9 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 overlay.style.display = 'none';
             };
         }
+    } else {
+        console.log('Seller form not found');
     }
 
-    // Scanner Dashboard Logic
+    // Scanner Dashboard Logic (unchanged for now)
     const scannerContainer = document.getElementById('scannerContainer');
     const startScanBtn = document.getElementById('startScanBtn');
     const scanStatus = document.getElementById('scan-status');
