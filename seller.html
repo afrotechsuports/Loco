@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selling Dashboard</title>
+    <title>LOCO - Selling Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <a href="index.html" class="back-arrow">←</a>
+        <div class="logo">LOCO</div>
+        <button class="menu-btn">☰</button>
+    </header>
     <div class="container">
         <h1>Selling Dashboard</h1>
-        <form class="ticket-form">
+        <form class="ticket-form" id="ticketForm">
             <label for="event-name">Event Name:</label>
-            <input type="text" id="event-name" placeholder="e.g., Concert Night" required>
+            <input type="text" id="event-name" placeholder="e.g., Diana Ross Concert" required>
             
             <label for="event-date">Date:</label>
             <input type="date" id="event-date" required>
@@ -19,15 +24,53 @@
             <label for="ticket-price">Price ($):</label>
             <input type="number" id="ticket-price" placeholder="e.g., 20" required>
             
+            <label for="section">Section:</label>
+            <input type="text" id="section" placeholder="e.g., 110" required>
+            
+            <label for="row">Row:</label>
+            <input type="text" id="row" placeholder="e.g., H" required>
+            
+            <label for="seat">Seat:</label>
+            <input type="text" id="seat" placeholder="e.g., 288" required>
+            
             <button type="submit" class="btn">Generate Ticket</button>
         </form>
-        <div class="ticket-preview">
-            <h3>Ticket Preview</h3>
-            <p>Event: <span id="preview-name">N/A</span></p>
-            <p>Date: <span id="preview-date">N/A</span></p>
-            <p>Price: $<span id="preview-price">N/A</span></p>
-            <div class="qr-code">QR Code Placeholder</div>
+        <div class="ticket-card" id="ticketPreview" style="display: none;">
+            <div class="ticket-header">
+                <h2>NEW DATE</h2>
+                <p>You’re all set: your ticket is good.</p>
+            </div>
+            <div class="ticket-info">
+                <p><strong>1 Ticket - LOCO Mobile ID</strong></p>
+                <div class="qr-code" id="qrCode"></div>
+                <p><strong>LOCO Customer</strong></p>
+            </div>
+            <div class="ticket-details">
+                <p><strong>Event:</strong> <span id="preview-name">N/A</span></p>
+                <p><strong>Date:</strong> <span id="preview-date">N/A</span></p>
+                <p><strong>Price:</strong> $<span id="preview-price">N/A</span></p>
+                <p><strong>Section:</strong> <span id="preview-section">N/A</span></p>
+                <p><strong>Row:</strong> <span id="preview-row">N/A</span></p>
+                <p><strong>Seat:</strong> <span id="preview-seat">N/A</span></p>
+            </div>
+            <div class="ticket-actions">
+                <button class="btn action-btn" id="downloadBtn">Download QR</button>
+            </div>
+            <div class="ticket-footer">
+                <p>Questions? <a href="#">FAQs and Live Chat here</a></p>
+            </div>
         </div>
     </div>
+    <div class="overlay" id="qrOverlay">
+        <div class="overlay-content">
+            <canvas id="qrCanvas"></canvas>
+            <button class="btn close-btn" id="closeOverlay">Close</button>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 LOCO. All rights reserved. | <a href="privacy.html">Privacy Policy</a></p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
