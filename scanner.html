@@ -15,7 +15,8 @@
     <div class="container">
         <h1>Scanning Dashboard</h1>
         <div class="scanner">
-            <button class="btn">Scan QR Code</button>
+            <button class="btn" id="startScanBtn">Start Scanning</button>
+            <div id="scannerContainer"></div>
             <div class="scan-result">
                 <p>Status: <span id="scan-status">Not Scanned</span></p>
                 <p>Event: <span id="scan-event">N/A</span></p>
@@ -24,7 +25,9 @@
         </div>
     </div>
     <footer>
-        <p>&copy; 2025 LOCO. All rights reserved. | <a href="privacy.html">Privacy Policy</a></p>
+        <p>© 2025 LOCO. All rights reserved. | <a href="privacy.html">Privacy Policy</a></p>
     </footer>
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
