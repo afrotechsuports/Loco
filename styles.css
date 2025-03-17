@@ -1,0 +1,120 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Headings */
+h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Dashboard Options */
+.dashboard-options {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Ticket Form */
+.ticket-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto 20px;
+}
+
+.ticket-form label {
+    text-align: left;
+}
+
+.ticket-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Ticket Preview */
+.ticket-preview {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+    margin: 10px auto;
+    line-height: 100px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Scanner */
+.scanner {
+    margin-top: 20px;
+}
+
+.scan-result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        margin: 5px;
+    }
+
+    .ticket-form {
+        max-width: 100%;
+    }
+}
